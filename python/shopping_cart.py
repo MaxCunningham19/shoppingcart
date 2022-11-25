@@ -3,7 +3,7 @@ from typing import Dict
 
 from shopping_cart_interface import IShoppingCart
 from pricer import Pricer
-from formatter import Formatter
+from formatter_interface import Formatter
 
 class ShoppingCart(IShoppingCart):
     """

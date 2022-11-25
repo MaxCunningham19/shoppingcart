@@ -1,6 +1,6 @@
 from io import StringIO
 import sys
-from shopping_cart import Formatter
+from formatter_interface import Formatter
 class Capturing(list):
     """ Helper for capturing the output receipts"""
     _stdout = None
