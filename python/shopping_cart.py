@@ -11,18 +11,22 @@ class ShoppingCart(IShoppingCart):
     """
     def __init__(self, pricer: Pricer):
         self.pricer = pricer
-        self._contents: Dict[str,int] = {}
+        self._contents = []
 
     def add_item(self, item_type: str, number: int):
         # adds new item to or update existing item in the shopping cart
-        if item_type not in self._contents:
-            self._contents[item_type] = number
-        else:
-            self._contents[item_type] = self._contents[item_type] + number
+        # if item_type not in self._contents:
+        #     self._contents[item_type] = number
+        # else:
+        #     self._contents[item_type] = self._contents[item_type] + number
+        self._contents.append((item_type,number)) 
+        # every time an item is scanned it is added onto the end of the list 
+        # then the list is printed in order
 
     def print_receipt(self):
         total = 0
-        for key, value in self._contents.items():
+        for index in range(len(self._contents)):
+            (key,value) = self._contents[index]
             price = self.pricer.get_price(key)
             total = total + price*value
             print(f"{key} - {value} - {price}")
