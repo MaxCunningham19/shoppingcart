@@ -3,15 +3,17 @@ from typing import Dict
 
 from shopping_cart_interface import IShoppingCart
 from pricer import Pricer
-
+from formatter import Formatter
 
 class ShoppingCart(IShoppingCart):
     """
     Implementation of the shopping tills in our supermarket.
     """
-    def __init__(self, pricer: Pricer):
+    def __init__(self, pricer: Pricer,formater:Formatter):
         self.pricer = pricer
         self._contents = []
+        self.formater = formater
+        
 
     def add_item(self, item_type: str, number: int):
         # adds new item to or update existing item in the shopping cart
@@ -29,8 +31,8 @@ class ShoppingCart(IShoppingCart):
             (key,value) = self._contents[index]
             price = self.pricer.get_price(key)
             total = total + price*value
-            print(f"{key} - {value} - {price}")
-        print(f"Total - {total}")
+            print(self.formater.format_items(key,value,price))
+        print(self.formater.format_total(total))
 
 class ShoppingCartCreator(ABC):
     """
@@ -38,20 +40,20 @@ class ShoppingCartCreator(ABC):
     The creation process will be delegated to the subclasses of this class.
     """
     @abstractmethod
-    def factory_method(self) -> ShoppingCart:
+    def factory_method(self,formatter:Formatter) -> ShoppingCart:
         # return the ShoppingCart object
         pass
 
-    def operation(self) -> ShoppingCart:
+    def operation(self,formatter:Formatter) -> ShoppingCart:
         # Here more operations can be performed on the ShoppingCart object
         # returns ShoppingCart object
-        return self.factory_method()
+        return self.factory_method(formatter)
 
 class ShoppingCartConcreteCreator(ShoppingCartCreator):
     """
     Concrete class for the ShoppingCart creator.
     Implements the factory_method
     """
-    def factory_method(self) -> ShoppingCart:
+    def factory_method(self,formatter) -> ShoppingCart:
         # returns ShoppingCart object
-        return ShoppingCart(Pricer())
+        return ShoppingCart(Pricer(),formatter)
