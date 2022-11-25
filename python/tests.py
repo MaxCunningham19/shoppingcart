@@ -1,6 +1,6 @@
 import unittest
 
-from shopping_cart import ShoppingCartConcreteCreator, ShoppingCart
+from shopping_cart import ShoppingCartConcreteCreator
 from test_utils import Capturing, BasicFormatter, PriceFirstFormatter
 
 
@@ -58,6 +58,20 @@ class ShoppingCartTest(unittest.TestCase):
             ("apple", 2, "100 - 2 - apple"),
             ("pear", 5, "0 - 5 - pear"),
             (TOTAL,0,"Total - 1200")
+        ]
+        self.perform(operations,PriceFirstFormatter())
+
+    def test_no_add_item_print(self):
+        operations = [
+            (TOTAL,0,"Total - 0")
+        ]
+        self.perform(operations,PriceFirstFormatter())
+
+    def test_negative_amount(self):
+        operations = [
+            ("banana", 5, "200 - 5 - banana"),
+            ("banana", -5, "200 - -5 - banana"),
+            (TOTAL,0,"Total - 0")
         ]
         self.perform(operations,PriceFirstFormatter())
 

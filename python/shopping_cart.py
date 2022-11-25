@@ -17,10 +17,6 @@ class ShoppingCart(IShoppingCart):
 
     def add_item(self, item_type: str, number: int):
         # adds new item to or update existing item in the shopping cart
-        # if item_type not in self._contents:
-        #     self._contents[item_type] = number
-        # else:
-        #     self._contents[item_type] = self._contents[item_type] + number
         self._contents.append((item_type,number)) 
         # every time an item is scanned it is added onto the end of the list 
         # then the list is printed in order
@@ -54,6 +50,6 @@ class ShoppingCartConcreteCreator(ShoppingCartCreator):
     Concrete class for the ShoppingCart creator.
     Implements the factory_method
     """
-    def factory_method(self,formatter) -> ShoppingCart:
+    def factory_method(self,formatter:Formatter) -> ShoppingCart:
         # returns ShoppingCart object
         return ShoppingCart(Pricer(),formatter)
