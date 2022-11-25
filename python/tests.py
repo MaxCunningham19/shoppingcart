@@ -21,5 +21,6 @@ class ShoppingCartTest(unittest.TestCase):
         self.assertEqual("apple - 2 - 100", output[0])
         self.assertEqual("banana - 5 - 200", output[1])
         self.assertEqual("pear - 5 - 0", output[2])
+        self.assertEqual("Total - 1200",output[3])
 
 unittest.main(exit=False)
